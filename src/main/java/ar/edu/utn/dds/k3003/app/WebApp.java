@@ -1,5 +1,6 @@
 package ar.edu.utn.dds.k3003.app;
 
+import ar.edu.utn.dds.k3003.clientes.HeladerasProxy;
 import ar.edu.utn.dds.k3003.clientes.ViandasProxy;
 import ar.edu.utn.dds.k3003.controladores.RutaController;
 import ar.edu.utn.dds.k3003.controladores.TrasladoController;
@@ -21,6 +22,7 @@ public class WebApp {
         var objectMapper = createObjectMapper();
         var fachada = new Fachada();
         fachada.setViandasProxy(new ViandasProxy(objectMapper));
+        fachada.setHeladerasProxy(new HeladerasProxy(objectMapper));
 
         var port = Integer.parseInt(env.getOrDefault("PORT", "8080"));
 
@@ -32,6 +34,7 @@ public class WebApp {
         app.post("/rutas", rutaController::agregar);
         app.post("/traslados", trasladosController::asignar);
         app.get("/traslados/{id}", trasladosController::obtener);
+        app.patch("/traslados/{id}", trasladosController::cambiarEstado);
     }
 
     public static ObjectMapper createObjectMapper() {

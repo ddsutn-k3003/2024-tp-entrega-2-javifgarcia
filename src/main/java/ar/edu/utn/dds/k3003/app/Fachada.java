@@ -60,7 +60,7 @@ public class Fachada implements ar.edu.utn.dds.k3003.facades.FachadaLogistica {
         List<Ruta> rutasPosibles = this.rutaRepository.findByHeladeras(trasladoDTO.getHeladeraOrigen(), trasladoDTO.getHeladeraDestino());
 
         if(rutasPosibles.isEmpty()){
-            throw new TrasladoNoAsignableException();
+            throw new TrasladoNoAsignableException("El traslado no es asignable, no tiene rutas posibles.");
         }
 
         Traslado trasladoAsignado = new Traslado(trasladoDTO.getQrVianda(), rutasPosibles.get(0), EstadoTrasladoEnum.ASIGNADO, trasladoDTO.getFechaTraslado());
